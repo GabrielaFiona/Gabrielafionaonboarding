@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Onboarding - Gabriela Fiona</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="floating-widget" class="collapsed">
+        <div class="fw-header" onclick="toggleWidget()">
+            <span>ESTIMATED TOTAL</span>
+            <span id="fw-header-total">$0</span>
+        </div>
+        <div class="fw-content">
+            <div id="fw-items">
+                <p class="empty-state">Select a package to start...</p>
+            </div>
+            <div class="fw-total">
+                <span>Total Investment</span>
+                <span id="fw-full-total">$0</span>
+            </div>
+            <div class="fw-deposit">
+                50% Deposit: <span id="fw-deposit">$0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress-header">
+        <div class="progress-bar">
+            <div class="progress-line-bg"></div>
+            <div class="progress-line-fill" id="progress-fill"></div>
+            
+            <div class="step-indicator completed" id="step-ind-1">1 <div class="step-label">Intake</div></div>
+            <div class="step-indicator active" id="step-ind-2">2 <div class="step-label">Roadmap</div></div>
+            <div class="step-indicator" id="step-ind-3">3 <div class="step-label">Quote</div></div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div id="step-2" class="step-section active">
+            
+            <div class="intro-block">
+                <h1>Build Your Roadmap</h1>
+                <p>Select the foundation that fits your needs. We'll customize the details next.</p>
+            </div>
+            
+            <h2 class="section-title">1. Choose a Base Package</h2>
+            <div class="package-grid">
+                <div class="package-card" onclick="selectPackage('starter', 1500, 5, this)">
+                    <div class="package-img-placeholder"></div>
+                    <div class="package-content">
+                        <span class="package-title">The Starter</span>
+                        <span class="package-price">$1,500</span>
+                        <div class="package-meta">Includes 5 Pages</div>
+                        <p class="package-desc">Perfect for portfolios and small service businesses. A clean, professional foundation.</p>
+                    </div>
+                </div>
+                <div class="package-card" onclick="selectPackage('growth', 2800, 8, this)">
+                    <div class="package-img-placeholder"></div>
+                    <div class="package-content">
+                        <span class="package-title">Growth Business</span>
+                        <span class="package-price">$2,800</span>
+                        <div class="package-meta">Includes 8 Pages</div>
+                        <p class="package-desc">Designed for lead generation. Includes blog setup, newsletter integration, and advanced SEO foundation.</p>
+                    </div>
+                </div>
+                <div class="package-card" onclick="selectPackage('ecommerce', 4500, 10, this)">
+                    <div class="package-img-placeholder"></div>
+                    <div class="package-content">
+                        <span class="package-title">Full E-Commerce</span>
+                        <span class="package-price">$4,500</span>
+                        <div class="package-meta">Includes 10 Pages</div>
+                        <p class="package-desc">Sell products online. Full shop setup, payment gateway, and inventory management system.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="addons-section" class="hidden">
+                <hr class="divider">
+                
+                <h2 class="section-title">2. Website Add-ons</h2>
+                
+                <div class="sitemap-builder">
+                    <h3>Your Sitemap (Pages)</h3>
+                    <p>Let's list the pages you need. Your package includes <strong id="included-pages-count">0</strong> pages. [cite_start]<br>Additional pages are $150/ea[cite: 3].</p>
+                    
+                    <div class="page-input-group">
+                        <input type="text" id="newPageName" placeholder="e.g. Services, About, Portfolio" onkeypress="handleEnter(event)">
+                        <button class="btn btn-add" onclick="addPage()">+ Add Page</button>
+                    </div>
+
+                    <div id="page-list" class="page-list">
+                        </div>
+
+                    <div class="page-summary">
+                        <span>Total Pages: <span id="total-page-count">0</span></span>
+                        <span class="extra-cost-tag" id="extra-page-cost" style="display:none;">+ Extra Cost: $0</span>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 40px;">Functionality & Services</h3>
+                <div class="addons-list">
+                    <div class="addon-pill" onclick="toggleAddon('seo', 500, this)">
+                        <span class="addon-name">Advanced SEO</span>
+                        <span class="addon-price">+$500</span>
+                    </div>
+                    <div class="addon-pill" onclick="toggleAddon('copy', 800, this)">
+                        <span class="addon-name">Copywriting</span>
+                        <span class="addon-price">+$800</span>
+                    </div>
+                    <div class="addon-pill" onclick="toggleAddon('logo', 300, this)">
+                        <span class="addon-name">Logo Refresh</span>
+                        <span class="addon-price">+$300</span>
+                    </div>
+                    <div class="addon-pill" onclick="toggleAddon('booking', 200, this)">
+                        <span class="addon-name">Booking System</span>
+                        <span class="addon-price">+$200</span>
+                    </div>
+                    <div class="addon-pill" onclick="toggleAddon('hosting', 300, this)">
+                        <span class="addon-name">Hosting Setup</span>
+                        <span class="addon-price">+$300</span>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary">Back</button>
+                    <button class="btn btn-primary" onclick="alert('Proceeding to Quote...')">Next: Review Quote &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
